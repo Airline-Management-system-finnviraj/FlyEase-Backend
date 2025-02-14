@@ -3,6 +3,7 @@ package com.flyease.flight_service.model;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "flights")
@@ -14,16 +15,14 @@ public class Flight {
     private String airline;
 
 //    Outbound flight details
-    private String departureOrigin;
-    private String departureDestination;
+    private String Origin;
+    private String Destination;
     private LocalDateTime departureTime;
     private LocalDateTime arrivalTime;
 
-//    Return flight details
-    private String returnOrigin;
-    private String returnDestination;
-    private LocalDateTime returnDepartureTime;
-    private LocalDateTime returnArrivalTime;
+
+    @OneToMany(mappedBy = "flight", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<SeatClass> seatClasses;
 
     public String getFlightNumber() {
         return flightNumber;
@@ -41,20 +40,20 @@ public class Flight {
         this.airline = airline;
     }
 
-    public String getDepartureOrigin() {
-        return departureOrigin;
+    public String getOrigin() {
+        return Origin;
     }
 
-    public void setDepartureOrigin(String departureOrigin) {
-        this.departureOrigin = departureOrigin;
+    public void setOrigin(String origin) {
+        Origin = origin;
     }
 
-    public String getDepartureDestination() {
-        return departureDestination;
+    public String getDestination() {
+        return Destination;
     }
 
-    public void setDepartureDestination(String departureDestination) {
-        this.departureDestination = departureDestination;
+    public void setDestination(String destination) {
+        Destination = destination;
     }
 
     public LocalDateTime getDepartureTime() {
@@ -73,35 +72,11 @@ public class Flight {
         this.arrivalTime = arrivalTime;
     }
 
-    public String getReturnOrigin() {
-        return returnOrigin;
+    public List<SeatClass> getSeatClasses() {
+        return seatClasses;
     }
 
-    public void setReturnOrigin(String returnOrigin) {
-        this.returnOrigin = returnOrigin;
-    }
-
-    public String getReturnDestination() {
-        return returnDestination;
-    }
-
-    public void setReturnDestination(String returnDestination) {
-        this.returnDestination = returnDestination;
-    }
-
-    public LocalDateTime getReturnDepartureTime() {
-        return returnDepartureTime;
-    }
-
-    public void setReturnDepartureTime(LocalDateTime returnDepartureTime) {
-        this.returnDepartureTime = returnDepartureTime;
-    }
-
-    public LocalDateTime getReturnArrivalTime() {
-        return returnArrivalTime;
-    }
-
-    public void setReturnArrivalTime(LocalDateTime returnArrivalTime) {
-        this.returnArrivalTime = returnArrivalTime;
+    public void setSeatClasses(List<SeatClass> seatClasses) {
+        this.seatClasses = seatClasses;
     }
 }
