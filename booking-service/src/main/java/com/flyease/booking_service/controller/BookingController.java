@@ -1,15 +1,20 @@
 package com.flyease.booking_service.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.flyease.booking_service.model.Booking;
+import com.flyease.booking_service.service.BookingService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/bookings")
 public class BookingController {
+    @Autowired
+    private BookingService bookingService;
 
-    @GetMapping
-    public String test(){
-        return "test bookings";
+    @PostMapping
+    public ResponseEntity<Booking> createBooking(@RequestBody Booking booking) {
+        Booking createdBooking = bookingService.saveBooking(booking.getUser_id(),booking.getFlight_id(),booking.getSeatClass());
+        return ResponseEntity.ok(createdBooking);
     }
 }
